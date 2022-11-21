@@ -18,10 +18,10 @@ class SaleOrder(models.Model):
     def _get_timesheet_invoice_description(self):
         return [
             ("000", _("None")),
-            ("111", _("Date - Time spent - Description")),
-            ("101", _("Date - Description")),
             ("001", _("Description")),
             ("011", _("Time spent - Description")),
+            ("101", _("Date - Description")),
+            ("111", _("Date - Time spent - Description")),
         ]
 
     def _get_timesheet_details(self, timesheet, desc_rule):
@@ -37,7 +37,7 @@ class SaleOrder(models.Model):
         return details
 
     def _get_timesheet_description_list(self, timesheet_ids, desc_rule):
-        """Returns a list of timesheets description"""
+        """Returns a list of timesheet description"""
         desc_list = []
         for timesheet_id in timesheet_ids.sorted(lambda t: t.date):
             details = self._get_timesheet_details(timesheet_id, desc_rule)
@@ -45,8 +45,8 @@ class SaleOrder(models.Model):
         return desc_list
 
     def _split_aml_by_timesheets(self, aml, ts_ids, desc_list):
-        """Split an invoice line in as many lines as there is related timesheets,
-        taking care to convert timesheets quantities in the invoice line's UoM"""
+        """Split an invoice line in as many lines as there are related timesheets,
+        taking care of converting timesheets quantities to the invoice line's UoM"""
         aml_total = aml.quantity
         aml_uom_id = aml.product_uom_id
         aml_seq = aml.sequence
